@@ -27,15 +27,15 @@
 一幅给定的图像S(x,y)可以分解为两个不同的图像：反射图像R(x,y)和入射图像（也有人称之为亮度图像）L(x,y)，其原理图如下所示： 
 ![图片](https://img-blog.csdn.net/20170508211020962?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYWppYW55aW5neGlhb3FpbmdoYW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 如上图所示，图像可以看做是入射图像和反射图像构成，入射光照射在反射物体上，通过反射物体的反射，形成反射光进入人眼，也就是人类所能看到的图像。
-![图片](https://uploader.shimo.im/f/A4q6ENWsM2klcy9W.png!thumbnail)
+![图片](https://uploader.shimo.im/f/Ac5IyVUXzdMsL4zI.png!thumbnail)
 公式（1）
 其中，L(x, y)表示入射光图像，它直接决定了图像中像素所能达到的动态范围，被认为是图像S(x, y)的低频分量，可以用一个低通滤波器来过滤，我们应该尽量去除；R(x, y)表示反射性质图像，它反映图像的内在属性，我们应该最大程度的保留，S(x, y)表示人眼所能接收的反射光图像。
 
-基于Retinex的图像增强的目的就是从原始图像S中估计出光照L，从而分解出R，消除光照不均的影响，以改善图像的视觉效果，正如人类视觉系统那样。在处理中，通常将图像转至对数域，即![图片](https://images0.cnblogs.com/blog/616589/201404/201551535886819.png)，从而将乘积关系转换为和的关系，而且对数形式接近人眼亮度感知能力：
-	![图片](https://images0.cnblogs.com/blog/616589/201404/201551546668390.png)
+基于Retinex的图像增强的目的就是从原始图像S中估计出光照L，从而分解出R，消除光照不均的影响，以改善图像的视觉效果，正如人类视觉系统那样。在处理中，通常将图像转至对数域，即![图片](https://uploader.shimo.im/f/ilCf27r2rhIXM6cD.png!thumbnail)，从而将乘积关系转换为和的关系，而且对数形式接近人眼亮度感知能力：
+	![图片](https://uploader.shimo.im/f/6MiORJyDxn01rkI5.png!thumbnail)
 Retinex方法的核心就是估测照度L，从图像S中估测L分量，并去除L分量，得到原始反射分量R，即：
-	![图片](https://images0.cnblogs.com/blog/616589/201404/201551554329990.png)
-函数[null](https://images0.cnblogs.com/blog/616589/201404/201551559471432.png)实现对照度L的估计（实际很多都是直接估计r分量）。
+	![图片](https://uploader.shimo.im/f/sQI2fRpYY5U8Mxfc.png!thumbnail)
+函数f(x)实现对照度L的估计（实际很多都是直接估计r分量）。
 
 Retinex认为在原始图像中，通过某种方法去除或者降低入射光图像的影响，从而尽量的保留物体本质的反射图像。从数学的角度来说，求解R(x, y)是一个奇异问题，只能通过数学方法近似的估计计算。根据入射图像估计方法的不同，先后涌现出很多的Retinex算法，虽然各种方法的表现形式不一样，但是实质基本是一致的，其一般的处理流程如下：
 ![图片](https://uploader.shimo.im/f/Oikd0rOoS0IeYpsz.png!thumbnail)
